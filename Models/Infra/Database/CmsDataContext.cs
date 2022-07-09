@@ -1,4 +1,5 @@
 
+using cmsMvc.Models.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 
@@ -20,5 +21,7 @@ namespace cmsMVC.Models.Infra.Database
             // JToken configuration = JToken.Parse(File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "apsettings.json")));
             // optionsBuilder.UseSqlServer(configuration["ConnectionStrings"].ToString());
         }
+
+        public DbSet<Administrador> Adminastradores {get; set;}
     }
 }
