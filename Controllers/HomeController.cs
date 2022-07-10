@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using cmsMvc.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace cmsMvc.Controllers;
 
@@ -14,12 +15,20 @@ public class HomeController : Controller
     }
 
     public IActionResult Index()
-    {
+    {   
+        string? roleError = "RoleNão encontrada";
+        ViewBag.Role = this.HttpContext.Request.Cookies.TryGetValue("admin", out roleError);
+        ViewBag.Role = roleError;
         return View();
     }
 
     public IActionResult Privacy()
     {
+        this.HttpContext.Response.Cookies.Append("admin", "adminRole", new CookieOptions(){
+            Expires = DateTimeOffset.UtcNow.AddSeconds(10),
+            HttpOnly = true
+        });
+
         return View();
     }
 

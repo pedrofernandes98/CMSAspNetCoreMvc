@@ -17,11 +17,13 @@ namespace cmsMVC
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
             
+            services.AddSession();
             services.AddControllersWithViews();
         }
 
         public void Configure(WebApplication app, IHostEnvironment environment)
         {
+            app.UseSession();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -35,6 +37,7 @@ namespace cmsMVC
 
             app.UseRouting();
 
+            
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cmsMVC.Models.Infra.Database;
 using cmsMvc.Models.Domain.Entities;
+using cmsMvc.Models.Infra.Auth;
 
 namespace cmsMvc.Controllers
 {
+    [Auth]
     public class AdministradorController : Controller
     {
         private readonly CmsDataContext _context;

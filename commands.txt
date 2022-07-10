@@ -1,0 +1,2 @@
+-- Gerar CRUD automágico aspnet mvc/core 
+dotnet aspnet-codegenerator controller -name AdministradorController -m Administrador -dc CmsDataContext --relativeFolderPath Controllers --useDefaultLayout
