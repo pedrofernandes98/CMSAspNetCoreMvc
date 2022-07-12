@@ -8,7 +8,7 @@ namespace cmsMvc.Models.Infra.Auth
         {
             if(string.IsNullOrEmpty(context.HttpContext.Request.Cookies["admin"]))
             {
-                context.HttpContext.Response.Redirect("/");
+                context.HttpContext.Response.Redirect("/login");
                 return;
             }
 

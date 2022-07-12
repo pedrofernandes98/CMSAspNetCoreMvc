@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using cmsMvc.Models;
 using Microsoft.AspNetCore.Http;
+using cmsMvc.Models.Infra.Auth;
 
 namespace cmsMvc.Controllers;
 
@@ -14,22 +15,25 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [Auth]
     public IActionResult Index()
     {   
-        string? roleError = "RoleNão encontrada";
-        ViewBag.Role = this.HttpContext.Request.Cookies.TryGetValue("admin", out roleError);
-        ViewBag.Role = roleError;
+        string? cookieValue = "";
+        this.HttpContext.Request.Cookies.TryGetValue("admin", out cookieValue);
+        ViewBag.Role = cookieValue;
         return View();
     }
 
     public IActionResult Privacy()
     {
-        this.HttpContext.Response.Cookies.Append("admin", "adminRole", new CookieOptions(){
-            Expires = DateTimeOffset.UtcNow.AddSeconds(10),
-            HttpOnly = true
-        });
-
         return View();
+    }
+
+    [Auth]
+    public IActionResult Sair()
+    {
+        this.HttpContext.Response.Cookies.Delete("admin");
+        return RedirectToAction("Index", "Login");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
